@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req, UsePipes } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards, UsePipes } from '@nestjs/common';
 import { UserCashService } from './userCash.service';
 import { LoginUserCashDto } from './dto/loginUserCash.dto';
 import { CreateUserCashDto } from './dto/createUserCash.dto';
@@ -6,6 +6,8 @@ import { UserCashEntity } from './userCash.entity';
 import { UserCashResponseInterface } from './types/userCashResponse.interface';
 import { BackendValidationPipe } from '../shared/pipes/backendValidation.pipe';
 import { Request } from 'express';
+import { AuthGuard } from '../user/guards/auth.guard';
+import { AuthCashGuard } from './guards/authCash.guard';
 
 @Controller('cash')
 export class UserCashController {
@@ -27,6 +29,7 @@ export class UserCashController {
 	}
 
 	@Get('/user')
+	@UseGuards(AuthCashGuard)
 	async getUser(@Req() request: Request): Promise<UserCashResponseInterface> {
 		console.log('req', request.headers);
 		return 'jkjkjkjk' as any;

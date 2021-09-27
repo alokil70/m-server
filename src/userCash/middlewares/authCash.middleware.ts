@@ -1,16 +1,16 @@
 import { JWT_SECRET } from 'src/config';
-import { ExpressRequest } from 'src/types/expressRequest.interface';
+import { ExpressCashRequestInterface } from 'src/types/expressCashRequest.interface';
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { NextFunction, Response } from 'express';
 import { verify } from 'jsonwebtoken';
-import { UserCashService } from '../userCash.service';
-import { UserEntity } from '../../user/user.entity';
+import { UserCashService } from 'src/userCash/userCash.service';
 
 @Injectable()
 export class AuthCashMiddleware implements NestMiddleware {
 	constructor(private readonly userCashService: UserCashService) {}
 
-	async use(req: ExpressRequest, res: Response, next: NextFunction) {
+	async use(req: ExpressCashRequestInterface, res: Response, next: NextFunction) {
+		console.log('AuthCashMiddleware');
 		if (!req.headers.authorization) {
 			req.user = null;
 			next();
@@ -21,8 +21,7 @@ export class AuthCashMiddleware implements NestMiddleware {
 
 		try {
 			const decode = verify(token, JWT_SECRET);
-			const user = await this.userCashService.findById(decode.id);
-			req.user = user;
+			req.user = await this.userCashService.findById(decode.id);
 			next();
 		} catch (err) {
 			req.user = null;
