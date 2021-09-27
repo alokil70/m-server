@@ -7,6 +7,7 @@ import { sign } from 'jsonwebtoken';
 import { JWT_SECRET } from 'src/config';
 import { UserResponseInterface } from './types/userResponse.interface';
 import { LoginUserDto } from './dto/loginUser.dto';
+import { LoginUserCashDto } from '../userCash/dto/loginUserCash.dto';
 import { compare } from 'bcryptjs';
 import { UpdateUserDto } from './dto/updateUser.dto';
 
