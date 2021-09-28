@@ -8,6 +8,7 @@ import { BackendValidationPipe } from '../shared/pipes/backendValidation.pipe';
 import { Request } from 'express';
 import { AuthGuard } from '../user/guards/auth.guard';
 import { AuthCashGuard } from './guards/authCash.guard';
+import { ExpressCashRequestInterface } from '../types/expressCashRequest.interface';
 
 @Controller('cash')
 export class UserCashController {
@@ -30,8 +31,7 @@ export class UserCashController {
 
 	@Get('/user')
 	@UseGuards(AuthCashGuard)
-	async getUser(@Req() request: Request): Promise<UserCashResponseInterface> {
-		console.log('req', request.headers);
-		return 'jkjkjkjk' as any;
+	async getUser(@Req() request: ExpressCashRequestInterface): Promise<UserCashResponseInterface> {
+		return this.userCashService.buildUserResponse(request.user);
 	}
 }
