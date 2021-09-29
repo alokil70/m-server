@@ -13,6 +13,29 @@ import { UserCashResponseInterface } from './types/userCashResponse.interface';
 export class UserCashService {
 	constructor(@InjectRepository(UserCashEntity) private readonly userCashRepository: Repository<UserCashEntity>) {}
 
+	async createUser(createUserCashDto: CreateUserCashDto): Promise<UserCashEntity> {
+		const errorResponse = {
+			errors: {},
+		};
+
+		const userByCode = await this.userCashRepository.findOne({
+			code: createUserCashDto.code,
+		});
+
+		if (userByCode) {
+			errorResponse.errors['code'] = 'has already been taken';
+		}
+		if (userByCode) {
+			throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
+		}
+
+		const newUser = new UserCashEntity();
+		Object.assign(newUser, createUserCashDto);
+		const user = await this.userCashRepository.save(newUser);
+		delete user.password;
+		return user;
+	}
+
 	async login(loginUserCashDto: LoginUserCashDto): Promise<UserCashEntity> {
 		const errorResponse = {
 			errors: {
@@ -38,34 +61,8 @@ export class UserCashService {
 		return user;
 	}
 
-	async createUser(createUserCashDto: CreateUserCashDto): Promise<UserCashEntity> {
-		const errorResponse = {
-			errors: {},
-		};
-		const userByCode = await this.userCashRepository.findOne({
-			code: createUserCashDto.code,
-		});
-
-		if (userByCode) {
-			errorResponse.errors['code'] = 'has already been taken';
-		}
-		if (userByCode) {
-			throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
-		}
-		const newUser = new UserCashEntity();
-		Object.assign(newUser, createUserCashDto);
-		const user = await this.userCashRepository.save(newUser);
-		delete user.password;
-		return user;
-	}
-
-	buildUserResponse(user: UserCashEntity): UserCashResponseInterface {
-		return {
-			user: {
-				...user,
-				token: this.generateJwt(user),
-			},
-		};
+	async findById(id: number): Promise<UserCashEntity> {
+		return this.userCashRepository.findOne(id);
 	}
 
 	private generateJwt(user: UserCashEntity): string {
@@ -78,7 +75,12 @@ export class UserCashService {
 		);
 	}
 
-	async findById(id: number): Promise<UserCashEntity> {
-		return this.userCashRepository.findOne(id);
+	buildUserResponse(user: UserCashEntity): UserCashResponseInterface {
+		return {
+			user: {
+				...user,
+				token: this.generateJwt(user),
+			},
+		};
 	}
 }
