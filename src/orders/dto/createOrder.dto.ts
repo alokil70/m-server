@@ -9,6 +9,10 @@ export class CreateOrderDto {
 	readonly products: string[];
 	readonly total: number;
 	@IsNotEmpty()
+	readonly num: number;
+	readonly table: number;
+	readonly position: number;
+	@IsNotEmpty()
 	readonly opened: boolean;
 	readonly payed: boolean;
 	readonly commonShift: number;

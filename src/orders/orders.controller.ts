@@ -13,16 +13,15 @@ export class OrdersController {
 
 	@Get()
 	@UseGuards(AuthCashGuard)
-	async getAllByUserId(@User('id') currentUserId: number, @Query() query: any): Promise<OrdersResponseInterface> {
-		const orders = await this.ordersService.getAllByUserId(currentUserId, query);
-		return orders;
+	async getAllByQueryParam(@User('id') currentUserId: number, @Query() query: any): Promise<OrdersResponseInterface> {
+		return await this.ordersService.getAllByQueryParam(currentUserId, query);
 	}
 
 	@Post()
 	@UseGuards(AuthCashGuard)
 	async create(
 		@User() currentUser: UserCashEntity,
-		@Body('order') createOrderDto: CreateOrderDto,
+		@Body('orders') createOrderDto: CreateOrderDto,
 	): Promise<OrderResponseInterface> {
 		const orders = await this.ordersService.create(currentUser, createOrderDto);
 		return this.ordersService.buildOrdersResponse(orders);

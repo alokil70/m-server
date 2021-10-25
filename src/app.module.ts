@@ -10,6 +10,7 @@ import { ProfileModule } from './profile/profile.module';
 import { UserCashModule } from './userCash/userCash.module';
 import { AuthCashMiddleware } from 'src/userCash/middlewares/authCash.middleware';
 import { OrdersModule } from './orders/orders.module';
+import { ProductsModule } from './products/products.module';
 
 @Module({
 	imports: [
@@ -17,6 +18,7 @@ import { OrdersModule } from './orders/orders.module';
 		TagModule,
 		UserModule,
 		UserCashModule,
+    ProductsModule,
 		OrdersModule,
 		ArticleModule,
 		ProfileModule,

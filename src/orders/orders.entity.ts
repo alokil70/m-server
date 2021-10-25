@@ -1,5 +1,6 @@
-import { BeforeUpdate, Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { BeforeUpdate, Column, Entity, JoinTable, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { UserCashEntity } from '../userCash/userCash.entity';
+import { ProductsEntity } from '../products/products.entity';
 
 @Entity({ name: 'orders' })
 export class OrdersEntity {
@@ -10,13 +11,19 @@ export class OrdersEntity {
 	title: string;
 
 	@Column()
+	num: number;
+
+	@Column()
+	table: number;
+
+	@Column()
+	position: number;
+
+	@Column()
 	creator: string;
 
 	@Column({ default: '' })
 	description: string;
-
-	@Column('simple-array')
-	products: string[];
 
 	@Column({ default: 0 })
 	total: number;
@@ -46,4 +53,8 @@ export class OrdersEntity {
 
 	@ManyToOne(() => UserCashEntity, (user) => user.orders)
 	author: UserCashEntity;
+
+	@ManyToMany(() => ProductsEntity, (product) => product.orders)
+	@JoinTable()
+	products: ProductsEntity[];
 }
