@@ -1,3 +1,3 @@
 import { UserCashEntity } from '../userCash.entity';
 // delete password from userCashEntity
-export type UserCashTypes = Omit<UserCashEntity, 'hashPassword'>;
+export type UserCashType = Omit<UserCashEntity, 'hashPassword'>;

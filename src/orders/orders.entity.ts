@@ -4,57 +4,57 @@ import { ProductsEntity } from '../products/products.entity';
 
 @Entity({ name: 'orders' })
 export class OrdersEntity {
-	@PrimaryGeneratedColumn()
-	id: number;
+  @PrimaryGeneratedColumn()
+  id: number;
 
-	@Column()
-	title: string;
+  @Column()
+  title: string;
 
-	@Column()
-	num: number;
+  @Column()
+  num: number;
 
-	@Column()
-	table: number;
+  @Column()
+  table: number;
 
-	@Column()
-	position: number;
+  @Column()
+  position: number;
 
-	@Column()
-	creator: string;
+  @Column()
+  creator: string;
 
-	@Column({ default: '' })
-	description: string;
+  @Column({ default: '' })
+  description: string;
 
-	@Column({ default: 0 })
-	total: number;
+  @Column({ default: 0 })
+  total: number;
 
-	@Column()
-	opened: boolean;
+  @Column()
+  opened: boolean;
 
-	@Column()
-	payed: boolean;
+  @Column()
+  payed: boolean;
 
-	@Column({ default: 0 })
-	commonShift: number;
+  @Column({ default: 0 })
+  commonShift: number;
 
-	@Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-	createdAt: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 
-	@Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-	updatedAt: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  updatedAt: Date;
 
-	@Column()
-	guid: string;
+  @Column()
+  guid: string;
 
-	@BeforeUpdate()
-	updateTimestamp() {
-		this.updatedAt = new Date();
-	}
+  @BeforeUpdate()
+  updateTimestamp() {
+    this.updatedAt = new Date();
+  }
 
-	@ManyToOne(() => UserCashEntity, (user) => user.orders)
-	author: UserCashEntity;
+  @ManyToOne(() => UserCashEntity, (user) => user.orders)
+  author: UserCashEntity;
 
-	@ManyToMany(() => ProductsEntity, (product) => product.orders)
-	@JoinTable()
-	products: ProductsEntity[];
+  @ManyToMany(() => ProductsEntity, (products) => products.orders)
+  @JoinTable()
+  products: ProductsEntity[];
 }

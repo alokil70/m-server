@@ -1,5 +1,5 @@
-import { UserCashTypes } from './userCash.types';
+import { UserCashType } from './userCash.type';
 // assign token in userCashEntity
 export interface UserCashResponseInterface {
-	user: UserCashTypes & { token: string };
+  user: UserCashType & { token: string };
 }

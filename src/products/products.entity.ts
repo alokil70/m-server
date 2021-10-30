@@ -1,5 +1,4 @@
 import { BeforeUpdate, Column, Entity, ManyToMany, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { UserCashEntity } from '../userCash/userCash.entity';
 import { CategoryEntity } from '../category/category.entity';
 import { OrdersEntity } from '../orders/orders.entity';
 
@@ -49,7 +48,7 @@ export class ProductsEntity {
     this.updatedAt = new Date();
   }
 
-  @ManyToOne(() => CategoryEntity, (category) => category.name)
+  @ManyToOne(() => CategoryEntity, (category) => category.products)
   category: CategoryEntity;
 
   @ManyToMany(() => OrdersEntity, (orders) => orders.products)
