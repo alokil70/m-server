@@ -24,7 +24,7 @@ export class ProductsController {
   @UseGuards(AuthCashGuard)
   async create(
     @User() currentUser: UserCashEntity,
-    @Body('products') createProductDto: CreateProductDto,
+    @Body('product') createProductDto: CreateProductDto,
   ): Promise<ProductResponseInterface> {
     const product = await this.productsService.create(currentUser, createProductDto);
     return this.productsService.buildOrdersResponse(product);

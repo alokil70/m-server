@@ -48,7 +48,7 @@ export class ProductsEntity {
     this.updatedAt = new Date();
   }
 
-  @ManyToOne(() => CategoryEntity, (category) => category.products)
+  @ManyToOne(() => CategoryEntity, (category) => category.products, { cascade: ['update'] })
   category: CategoryEntity;
 
   @ManyToMany(() => OrdersEntity, (orders) => orders.products)

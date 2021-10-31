@@ -54,12 +54,13 @@ export class ProductsService {
   }
 
   async create(currentUser: UserCashEntity, createProductDto: CreateProductDto): Promise<ProductsEntity> {
-    const order = new OrdersEntity();
-    Object.assign(order, createProductDto);
+    const product = new ProductsEntity();
+    Object.assign(product, createProductDto);
 
-    order.guid = this.getGUID();
-    order.author = currentUser;
-    return await this.productsRepository.save(order);
+    product.guid = this.getGUID();
+    product.creator = 'currentUser.code';
+    console.log('create product', product);
+    return await this.productsRepository.save(product);
   }
 
   buildOrdersResponse(products: ProductsEntity): ProductResponseInterface {

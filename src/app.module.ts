@@ -11,6 +11,7 @@ import { UserCashModule } from './userCash/userCash.module';
 import { AuthCashMiddleware } from 'src/userCash/middlewares/authCash.middleware';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -18,6 +19,7 @@ import { ProductsModule } from './products/products.module';
     TagModule,
     UserModule,
     UserCashModule,
+    CategoryModule,
     ProductsModule,
     OrdersModule,
     ArticleModule,

@@ -32,6 +32,6 @@ export class CategoryEntity {
     this.updatedAt = new Date();
   }
 
-  @OneToMany(() => ProductsEntity, (product) => product.category)
+  @OneToMany(() => ProductsEntity, (products) => products.category)
   products: ProductsEntity[];
 }

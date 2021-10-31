@@ -17,6 +17,7 @@ export class OrdersService {
   async getAllByQueryParam(currentUserId: number, query: any): Promise<OrdersResponseInterface> {
     const queryBuilder = getRepository(OrdersEntity)
       .createQueryBuilder('orders')
+      .leftJoinAndSelect('orders.products', 'products')
       .leftJoinAndSelect('orders.author', 'author');
 
     queryBuilder.orderBy('orders.createdAt', 'DESC');
