@@ -3,35 +3,35 @@ import { ProductsEntity } from '../products/products.entity';
 
 @Entity({ name: 'category' })
 export class CategoryEntity {
-  @PrimaryGeneratedColumn()
-  id: number;
+	@PrimaryGeneratedColumn()
+	id: number;
 
-  @Column()
-  title: string;
+	@Column()
+	title: string;
 
-  @Column()
-  name: string;
+	@Column()
+	name: string;
 
-  @Column()
-  creator: string;
+	@Column()
+	creator: string;
 
-  @Column({ default: '' })
-  description: string;
+	@Column({ default: '' })
+	description: string;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  createdAt: Date;
+	@Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+	createdAt: Date;
 
-  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
-  updatedAt: Date;
+	@Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+	updatedAt: Date;
 
-  @Column()
-  guid: string;
+	@Column()
+	guid: string;
 
-  @BeforeUpdate()
-  updateTimestamp() {
-    this.updatedAt = new Date();
-  }
+	@BeforeUpdate()
+	updateTimestamp() {
+		this.updatedAt = new Date();
+	}
 
-  @OneToMany(() => ProductsEntity, (products) => products.category)
-  products: ProductsEntity[];
+	@OneToMany(() => ProductsEntity, (products) => products.category)
+	products: ProductsEntity[];
 }
