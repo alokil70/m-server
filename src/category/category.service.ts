@@ -8,20 +8,20 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class CategoryService {
-  constructor(@InjectRepository(CategoryEntity) private readonly categoryRepository: Repository<CategoryEntity>) {}
-  async getAllByQueryParam(currentUserId: number, query: any) {
-    return undefined;
-  }
+	constructor(@InjectRepository(CategoryEntity) private readonly categoryRepository: Repository<CategoryEntity>) {}
+	async getAllByQueryParam(currentUserId: number, query: any) {
+		return undefined;
+	}
 
-  async create(currentUser: UserCashEntity, createCategoryDto: CreateCategoryDto): Promise<CategoryEntity> {
-    const category = new CategoryEntity();
-    Object.assign(category, createCategoryDto);
-    category.guid = '2222';
-    console.log('category create', category);
-    return await this.categoryRepository.save(category);
-  }
+	async create(currentUser: UserCashEntity, createCategoryDto: CreateCategoryDto): Promise<CategoryEntity> {
+		const category = new CategoryEntity();
+		Object.assign(category, createCategoryDto);
+		category.guid = '2222';
+		console.log('category create', category);
+		return await this.categoryRepository.save(category);
+	}
 
-  buildCategoryResponse(category: CategoryEntity): CategoryResponseInterface {
-    return { category };
-  }
+	buildCategoryResponse(category: CategoryEntity): CategoryResponseInterface {
+		return { category };
+	}
 }
