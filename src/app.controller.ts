@@ -1,12 +1,22 @@
 import { Controller, Get } from '@nestjs/common';
-import { AppService } from './app.service';
+import { OrdersService } from './orders/orders.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+	constructor(private readonly ordersService: OrdersService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+	@Get('initial-state')
+	async getInitialState() {
+		/*const currentPizzaProviderInformation = this.pizzasProvidersService
+			.getCurrentProvider()
+			.getPizzeriaInformation();*/
+		console.log('initial');
+
+		return await this.ordersService.getAllByQueryParam(null, {});
+		/*pizzas: this.pizzasService.getNormalizedData(),
+			pizzasCategories: this.pizzasCategoriesService.getNormalizedData(),
+			users: this.usersService.getNormalizedData(),
+			ingredients: this.ingredientsService.getNormalizedData(),
+			pizzeria: currentPizzaProviderInformation,*/
+	}
 }
