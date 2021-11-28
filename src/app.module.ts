@@ -14,25 +14,25 @@ import { ProductsModule } from './products/products.module';
 import { CategoryModule } from './category/category.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forRoot(ormconfig),
-    TagModule,
-    UserModule,
-    UserCashModule,
-    CategoryModule,
-    ProductsModule,
-    OrdersModule,
-    ArticleModule,
-    ProfileModule,
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+	imports: [
+		TypeOrmModule.forRoot(ormconfig),
+		TagModule,
+		UserModule,
+		UserCashModule,
+		CategoryModule,
+		ProductsModule,
+		OrdersModule,
+		ArticleModule,
+		ProfileModule,
+	],
+	controllers: [AppController],
+	providers: [AppService],
 })
 export class AppModule {
-  configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthCashMiddleware).forRoutes({
-      path: '*',
-      method: RequestMethod.ALL,
-    });
-  }
+	configure(consumer: MiddlewareConsumer) {
+		consumer.apply(AuthCashMiddleware).forRoutes({
+			path: '*',
+			method: RequestMethod.ALL,
+		});
+	}
 }

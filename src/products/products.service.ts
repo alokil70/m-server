@@ -55,10 +55,8 @@ export class ProductsService {
 	async create(currentUser: UserCashEntity, createProductDto: CreateProductDto): Promise<ProductsEntity> {
 		const product = new ProductsEntity();
 		Object.assign(product, createProductDto);
-
 		product.guid = this.getGUID();
 		product.creator = 'currentUser.code';
-		console.log('create product', product);
 		return await this.productsRepository.save(product);
 	}
 
