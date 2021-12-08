@@ -15,14 +15,12 @@ export class UserCashController {
   @Post('/reg')
   @UsePipes(new BackendValidationPipe())
   async createUser(@Body('user') createUserCashDto: CreateUserCashDto): Promise<UserCashEntity> {
-    console.log('createUser', typeof createUserCashDto.password);
     return await this.userCashService.createUser(createUserCashDto);
   }
 
   @Post('/login')
   @UsePipes(new BackendValidationPipe())
   async login(@Body('user') loginUserCashDto: LoginUserCashDto): Promise<UserCashResponseInterface> {
-    console.log('controller loginCash', loginUserCashDto);
     const user = await this.userCashService.login(loginUserCashDto);
     return this.userCashService.buildUserResponse(user);
   }
