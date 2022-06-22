@@ -13,7 +13,10 @@ export class OrdersController {
 
 	@Get()
 	@UseGuards(AuthCashGuard)
-	async getAllByQueryParam(@User('id') currentUserId: number, @Query() query: any): Promise<OrdersResponseInterface> {
+	async getAllByQueryParam(
+		@User('id') currentUserId: number,
+		@Query() query: any,
+	): Promise<OrdersResponseInterface> {
 		return await this.ordersService.getAllByQueryParam(currentUserId, query);
 	}
 
