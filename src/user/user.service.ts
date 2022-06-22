@@ -12,10 +12,8 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()
 export class UserService {
-	constructor(
-		@InjectRepository(UserEntity)
-		private readonly userRepository: Repository<UserEntity>,
-	) {}
+	constructor(@InjectRepository(UserEntity) private readonly userRepository: Repository<UserEntity>) {}
+
 	async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
 		const errorResponse = {
 			errors: {},
@@ -26,11 +24,9 @@ export class UserService {
 		const userByUsername = await this.userRepository.findOne({
 			username: createUserDto.username,
 		});
-
 		if (userByEmail) {
 			errorResponse.errors['email'] = 'has already been taken';
 		}
-
 		if (userByUsername) {
 			errorResponse.errors['username'] = 'has already been taken';
 		}
@@ -41,10 +37,6 @@ export class UserService {
 		Object.assign(newUser, createUserDto);
 		console.log('newUser', newUser);
 		return await this.userRepository.save(newUser);
-	}
-
-	async findById(id: number): Promise<UserEntity> {
-		return this.userRepository.findOne(id);
 	}
 
 	async login(loginUserDto: LoginUserDto): Promise<UserEntity> {
@@ -59,17 +51,13 @@ export class UserService {
 			},
 			{ select: ['id', 'username', 'email', 'bio', 'image', 'password'] },
 		);
-
 		if (!user) {
 			throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-
 		const isPasswordCorrect = await compare(loginUserDto.password, user.password);
-
 		if (!isPasswordCorrect) {
 			throw new HttpException(errorResponse, HttpStatus.UNPROCESSABLE_ENTITY);
 		}
-
 		delete user.password;
 		return user;
 	}
@@ -78,6 +66,10 @@ export class UserService {
 		const user = await this.findById(userId);
 		Object.assign(user, updateUserDto);
 		return await this.userRepository.save(user);
+	}
+
+	async findById(id: number): Promise<UserEntity> {
+		return this.userRepository.findOne(id);
 	}
 
 	generateJwt(user: UserEntity): string {

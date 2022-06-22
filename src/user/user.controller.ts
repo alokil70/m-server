@@ -4,12 +4,13 @@ import { CreateUserDto } from './dto/createUser.dto';
 import { UserResponseInterface } from './types/userResponse.interface';
 import { LoginUserDto } from './dto/loginUser.dto';
 import { Request } from 'express';
-import { ExpressRequest } from 'src/types/expressRequest.interface';
+import { ExpressRequestInterface } from 'src/types/expressRequest.interface';
 import { User } from './decorators/user.decorator';
 import { UserEntity } from './user.entity';
 import { AuthGuard } from './guards/auth.guard';
 import { UpdateUserDto } from './dto/updateUser.dto';
-import { BackendValidationPipe } from 'src/shared/pipes/backendValidation.pipe';
+import { BackendValidationPipe } from '../shared/pipes/backendValidation.pipe';
+import { LoginUserCashDto } from '../userCash/dto/loginUserCash.dto';
 
 @Controller()
 export class UserController {
